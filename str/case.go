@@ -36,6 +36,7 @@ func ScreamingSnake(s string) string {
 	head, tail := headTailCount(s, '_')
 	return strings.Repeat("_", head) + strings.Join(scream(words(s)), "_") + strings.Repeat("_", tail)
 }
+
 /*--SNAKE STYLE END--*/
 
 /*--KEBAB STYLE START--*/
@@ -50,6 +51,7 @@ func ScreamingKebab(s string) string {
 	head, tail := headTailCount(s, '-')
 	return strings.Repeat("-", head) + strings.Join(scream(words(s)), "-") + strings.Repeat("-", tail)
 }
+
 /*--KEBAB STYLE END--*/
 
 /*--Camel STYLE START--*/
@@ -72,6 +74,7 @@ func UpperCamel(s string) string {
 func Pascal(s string) string {
 	return strings.Join(camel(words(s), 0), "")
 }
+
 /*--Camel STYLE END--*/
 
 /**--OTHER STYLE START--*/
@@ -94,25 +97,26 @@ func Title(s string) string {
 func ScreamingTitle(s string) string {
 	return strings.ToTitle(s)
 }
-/*--OTHER STYLE END--*/
 
+/*--OTHER STYLE END--*/
 
 // words helper
 func words(s string) (w []string) {
+	s = addWordBoundariesToNumbers(s)
 	start := 0
 	l := len(s)
 	var prevLower, prevUpper bool
 Loop:
 	for i, c := range s {
 		switch c {
-			case '-', '_', ' ':
-				if start != i {
-					w = append(w, strings.ToLower(s[start:i]))
-				}
-				start = i + 1
-				prevLower = false
-				prevUpper = false
-				continue Loop
+		case '-', '_', ' ':
+			if start != i {
+				w = append(w, strings.ToLower(s[start:i]))
+			}
+			start = i + 1
+			prevLower = false
+			prevUpper = false
+			continue Loop
 		}
 		cs := s[i : i+1]
 		if strings.ToUpper(cs) == cs {
