@@ -1,5 +1,10 @@
 package common
 
+var (
+	JsonRespSuccess = 20000  // ok
+	JsonRespInvalid = 20500  // invalid
+	JsonRespCommonFail = 50000  // fail with error
+)
 
 type Error struct {
 	Code int
@@ -13,7 +18,8 @@ type JsonResult struct {
 	Data    interface{} `json:"data"`
 }
 
-func Api(code int, message string, data interface{}) *JsonResult {
+// return Json
+func Json(code int, message string, data interface{}) *JsonResult {
 	return &JsonResult{
 		Code:    code,
 		Message: message,
@@ -21,15 +27,17 @@ func Api(code int, message string, data interface{}) *JsonResult {
 	}
 }
 
+// success response with data
 func Success(data interface{}) *JsonResult {
 	return &JsonResult{
-		Code:    200,
+		Code:    JsonRespSuccess,
 		Message: "success",
 		Data:    data,
 	}
 }
 
-func Fail(err *Error) *JsonResult {
+// failure response with error
+func Failure(err *Error) *JsonResult {
 	return &JsonResult{
 		Code:    err.Code,
 		Message: err.Message,
