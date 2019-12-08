@@ -5,9 +5,6 @@ import (
 	"strings"
 )
 
-var uppercaseAcronym = map[string]bool{
-	"ID": true,
-}
 var numberSequence = regexp.MustCompile(`([a-zA-Z])(\d+)([a-zA-Z]?)`)
 var numberReplacement = []byte(`$1 $2 $3`)
 
@@ -89,6 +86,7 @@ func Delimited(s string, d uint8) string {
 	head, tail := headTailCount(s, d)
 	return strings.Repeat(delimited, head) + strings.Join(words(s), delimited) + strings.Repeat(delimited, tail)
 }
+
 /*--OTHER STYLE END--*/
 
 // words helper

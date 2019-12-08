@@ -76,7 +76,6 @@ func TestScreamingSnake(t *testing.T) {
 	}
 }
 
-
 // Testing camel snake
 func TestCamelSnake(t *testing.T) {
 	cases := [][]string{
@@ -293,7 +292,6 @@ func TestUpperCamel(t *testing.T) {
 	}
 }
 
-
 // Testing uppercase
 func TestDelimited(t *testing.T) {
 	cases := [][]string{
@@ -335,4 +333,3 @@ func TestDelimited(t *testing.T) {
 		}
 	}
 }
-
