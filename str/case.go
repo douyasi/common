@@ -46,7 +46,13 @@ func Kebab(s string) string {
 	return strings.Repeat("-", head) + strings.Join(words(s), "-") + strings.Repeat("-", tail)
 }
 
-// CamelKebab case is a variant of Kebab case with each element's first letter uppercased : FOO-BAR
+// CamelKebab case is a variant of Kebab case with each element's first letter uppercased : fooBar --> Foo-Bar
+func CamelKebab(s string) string {
+	head, tail := headTailCount(s, '-')
+	return strings.Repeat("-", head) + strings.Join(camel(words(s), 0), "-") + strings.Repeat("-", tail)
+}
+
+// ScreamingKebab case is a variant of Kebab case with  with all letters uppercased : fooBar --> FOO-BAR
 func ScreamingKebab(s string) string {
 	head, tail := headTailCount(s, '-')
 	return strings.Repeat("-", head) + strings.Join(scream(words(s)), "-") + strings.Repeat("-", tail)
@@ -78,26 +84,11 @@ func Pascal(s string) string {
 /*--Camel STYLE END--*/
 
 /**--OTHER STYLE START--*/
-// Covert a string to uppercase : fooBar --> FOOBAR
-func Upper(s string) string {
-	return strings.ToUpper(s)
+func Delimited(s string, d uint8) string {
+	delimited := string(d)
+	head, tail := headTailCount(s, d)
+	return strings.Repeat(delimited, head) + strings.Join(words(s), delimited) + strings.Repeat(delimited, tail)
 }
-
-// Covert a string to lowercase : fooBar --> foobar
-func Lower(s string) string {
-	return strings.ToLower(s)
-}
-
-// Covert a string to title case : The quick brown fox jumps over the lazy dog --> The Quick Brown Fox Jumps Over The Lazy Dog
-func Title(s string) string {
-	return strings.Title(s)
-}
-
-// Covert a string to screaming title case : The quick brown fox jumps over the lazy dog --> THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG
-func ScreamingTitle(s string) string {
-	return strings.ToTitle(s)
-}
-
 /*--OTHER STYLE END--*/
 
 // words helper
@@ -109,7 +100,7 @@ func words(s string) (w []string) {
 Loop:
 	for i, c := range s {
 		switch c {
-		case '-', '_', ' ':
+		case '-', '_', ' ', '.':
 			if start != i {
 				w = append(w, strings.ToLower(s[start:i]))
 			}
