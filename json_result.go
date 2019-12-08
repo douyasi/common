@@ -46,7 +46,7 @@ func Error(err *JsonError) *JsonResult {
 
 // failure response with message
 func Failure(message string) *JsonResult {
-	type EmptyData interface {
+	type EmptyData struct {
 	}
 	var data EmptyData
 	return &JsonResult{
