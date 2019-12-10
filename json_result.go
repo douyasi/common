@@ -2,8 +2,13 @@ package common
 
 var (
 	JsonRespSuccess = 20000  // success
+	JsonRespInvalidParams = 40022  // invalid params, validation fail
 	JsonRespCommonFailure = 50000  // failure
+	// other failure throw JsonError code > 50000
 )
+
+type EmptyData struct {
+}
 
 type JsonError struct {
 	Code int
@@ -19,6 +24,9 @@ type JsonResult struct {
 
 // return Json
 func Json(code int, message string, data interface{}) *JsonResult {
+	if data == nil {
+		data = EmptyData{}
+	}
 	return &JsonResult{
 		code,
 		message,
@@ -28,6 +36,9 @@ func Json(code int, message string, data interface{}) *JsonResult {
 
 // success response with data
 func Success(data interface{}) *JsonResult {
+	if data == nil {
+		data = EmptyData{}
+	}
 	return &JsonResult{
 		JsonRespSuccess,
 		"success",
@@ -45,8 +56,9 @@ func Error(err *JsonError) *JsonResult {
 }
 
 // failure response with message
-func Failure(message string) *JsonResult {
-	type EmptyData struct {
+func Failure(message string, code int) *JsonResult {
+	if code < JsonRespCommonFailure {
+		code = JsonRespCommonFailure
 	}
 	var data EmptyData
 	return &JsonResult{
