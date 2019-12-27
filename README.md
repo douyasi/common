@@ -65,3 +65,8 @@ func main() {
 }
 ```
 
+### 参考资料
+
+- https://github.com/thinkeridea/go-extend
+- https://github.com/iancoleman/strcase
+- https://github.com/janos/casbab
