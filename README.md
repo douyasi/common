@@ -1,6 +1,6 @@
 # Common
 
->   个人项目中，使用到的通用基础类库。
+>   个人 `GO` 项目中，使用到的通用基础类库。
 
 
 ### 使用示例
@@ -13,8 +13,6 @@ package main
 
 import (
 	"github.com/douyasi/common/helper"
-	"io"
-	"os"
 )
 
 func main() {
@@ -30,6 +28,23 @@ func main() {
 #### 日志
 
 位于 `log/logger.go` 文件，基于 `logrus` ，支持同时向控制台与文件输出日志。
+
+```go
+package main
+import "github.com/douyasi/common/log"
+
+func init() {
+    log.InitLog("./go.log")
+}
+
+
+func main() {
+    info := "hello world"
+    log.Logger().Info("info:", info)
+    err := "something wrong, please check your params"
+    log.Logger().Error("error:", err)
+}
+```
 
 #### 字符串变换
 

@@ -3,9 +3,9 @@ package resp
 import "time"
 
 var (
-	SuccessCode   = 20000  // success
-	RejectionCode = 40000  // invalid params, validation fail etc.
-	FailureCode   = 50000  // failure
+	SuccessCode   = 20000 // success
+	RejectionCode = 40000 // invalid params, validation fail etc.
+	FailureCode   = 50000 // failure
 	// other error or failure please throw JsonError, code > 50000
 )
 
@@ -15,17 +15,17 @@ type EmptyData struct {
 
 // jsonError
 type JsonError struct {
-	Code int
+	Code    int
 	Message string
-	Data interface{}
+	Data    interface{}
 }
 
 // jsonResult
 type JsonResult struct {
-	Code    int         `json:"code"`
-	Message string      `json:"message"`
-	Data    interface{} `json:"data"`
-	Timestamp int64     `json:"timestamp"`
+	Code      int         `json:"code"`
+	Message   string      `json:"message"`
+	Data      interface{} `json:"data"`
+	Timestamp int64       `json:"timestamp"`
 }
 
 // return Json
@@ -50,7 +50,7 @@ func Success(data interface{}) *JsonResult {
 		SuccessCode,
 		"success",
 		data,
-			time.Now().Unix(),
+		time.Now().Unix(),
 	}
 }
 
